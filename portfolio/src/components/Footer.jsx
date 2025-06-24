@@ -39,7 +39,8 @@ function Footer() {
         aria-hidden="true"
       ></div>
 
-      <div className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left z-10">
+      {/* ✅ Added pl-8 here */}
+      <div className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-center md:text-left z-10 pl-8">
         {/* Left Section */}
         <div>
           <h3 className="text-xl font-bold mb-2">MD. SAKIN</h3>
@@ -52,36 +53,11 @@ function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
           <nav className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-            <a
-              href="#home"
-              className="text-gray-300 hover:text-white transition-colors duration-300"
-            >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="text-gray-300 hover:text-white transition-colors duration-300"
-            >
-              About
-            </a>
-            <a
-              href="#projects"
-              className="text-gray-300 hover:text-white transition-colors duration-300"
-            >
-              Projects
-            </a>
-            <a
-              href="#skills"
-              className="text-gray-300 hover:text-white transition-colors duration-300"
-            >
-              Skills
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-300 hover:text-white transition-colors duration-300"
-            >
-              Contact
-            </a>
+            <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+            <a href="#about" className="text-gray-300 hover:text-white transition-colors duration-300">About</a>
+            <a href="#projects" className="text-gray-300 hover:text-white transition-colors duration-300">Projects</a>
+            <a href="#skills" className="text-gray-300 hover:text-white transition-colors duration-300">Skills</a>
+            <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
           </nav>
         </div>
 
