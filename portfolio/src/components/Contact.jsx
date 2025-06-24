@@ -49,6 +49,33 @@ const Contact = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
+
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "49c4736c-0179-4719-b3a7-1abb118c3f9f");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: json
+    }).then((res) => res.json());
+
+    if (res.success) {
+      alert(res.message);
+    }
+  };
+
+
+
   return (
     <section
       id="contact"
@@ -87,7 +114,7 @@ const Contact = () => {
           Let's connect and create something amazing!
         </motion.p>
 
-        <form action="https://getform.io/f/your-form-endpoint" method="POST" className="space-y-6">
+        <form onSubmit={onSubmit} action="https://getform.io/f/your-form-endpoint" method="POST" className="space-y-6">
           {/* IMPORTANT: Replace "https://getform.io/f/your-form-endpoint" with your actual form service endpoint */}
           <motion.input
             type="text"
