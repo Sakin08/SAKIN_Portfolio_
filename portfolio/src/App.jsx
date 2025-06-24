@@ -20,7 +20,7 @@ function App() {
       <Element name="about">
         <About />
       </Element>
-
+ 
       <Element name="projects">
         <Project />
       </Element>
