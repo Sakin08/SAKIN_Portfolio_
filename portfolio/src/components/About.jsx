@@ -24,7 +24,11 @@ const About = () => {
 
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: "easeOut", delay: 0.2 },
+    },
     hover: { scale: 1.05, rotate: 2, transition: { type: "spring", stiffness: 300 } },
   };
 
@@ -53,14 +57,14 @@ const About = () => {
       className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-indigo-100 flex items-center py-20 px-4"
     >
       <motion.div
-        className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center"
+        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center px-4 md:px-8 lg:px-8"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
       >
         {/* Text Content */}
-        <div className="order-2 md:order-1">
+        <div className="order-2 md:order-1 max-w-xl mx-auto md:mx-0">
           <motion.h2
             className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 relative pb-2"
             variants={textVariants}
@@ -82,11 +86,11 @@ const About = () => {
           </motion.p>
 
           <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            I love to collaborate, learn continuously, and take on new challenges. My interests include <span className="text-indigo-700 font-medium">problem-solving, UI/UX design, and smart systems like facial recognition & attendance tracking</span>.
+            I love to collaborate, learn continuously, and take on new challenges. My interests include <span className="text-indigo-700 font-medium">problem-solving, making MERN projects</span>.
           </motion.p>
 
           <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            Currently, I'm working on a university resource portal project and exploring more about APIs, authentication, and scalable frontend design.
+            Currently, I'm working on a Doctors Appointment system booking web app project and exploring more about APIs, authentication, and scalable frontend design.
           </motion.p>
 
           <motion.button
@@ -109,7 +113,7 @@ const About = () => {
           <img
             src={profile}
             alt="MD. Sohanoor Rahaman Sakin"
-            className="rounded-3xl shadow-2xl object-cover w-72 h-72 md:w-96 md:h-96 border-8 border-indigo-500 transform transition-all duration-300 ease-in-out"
+            className="rounded-3xl shadow-2xl object-cover w-full max-w-xs md:max-w-md h-auto border-8 border-indigo-500 transform transition-all duration-300 ease-in-out"
           />
         </motion.div>
       </motion.div>
