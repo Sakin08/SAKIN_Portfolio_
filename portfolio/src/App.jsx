@@ -6,6 +6,7 @@ import About from "./components/About";
 import Project from "./components/Project";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
       <Element name="contact">
         <Contact />
       </Element>
-      
+      <Footer />
     </>
   );
 }
