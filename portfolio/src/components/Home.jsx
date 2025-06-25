@@ -112,7 +112,7 @@ const Home = () => {
             <motion.a href="https://drive.google.com/drive/u/0/folders/1ombUDLQNjuZcMMupRx_ZPei8iay_9xF-" target="_blank" rel="noopener noreferrer"
               className="px-10 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-bold rounded-xl shadow-lg hover:from-green-600 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300 ease-in-out transform flex items-center justify-center"
               variants={buttonVariants} whileHover="hover" whileTap="tap">
-              Download CV
+              Download Resume
             </motion.a>
           </motion.div>
         </motion.div>
