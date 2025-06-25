@@ -9,6 +9,20 @@ const LocationIcon = ({ className = "h-6 w-6" }) => (
 );
 
 
+const PhoneIcon = ({ className = "h-6 w-6" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.69.59 1 1 0 011 1V20a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.26.2 2.49.59 3.69a1 1 0 01-.24 1.01l-2.2 2.2z" />
+  </svg>
+);
+
+const EmailIcon = ({ className = "h-6 w-6" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" />
+  </svg>
+);
+
+
+
 const Contact = () => {
   // Framer Motion Variants
   const sectionVariants = {
@@ -48,6 +62,8 @@ const Contact = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
+
+
 
 
 
@@ -153,19 +169,34 @@ const Contact = () => {
 
         {/* The social media links and general email have been moved to the Footer component */}
 
-        <motion.div
-            className="mt-8 text-center text-gray-700"
-            variants={addressVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-        >
-            <p className="text-lg font-semibold mb-2">Address</p>
-            <div className="flex items-center justify-center text-gray-600">
-                <LocationIcon className="h-6 w-6 mr-2" />
-                <span>Dhaka, Bangladesh</span>
-            </div>
-        </motion.div>
+   <motion.div
+  className="mt-8 text-center text-gray-700 space-y-4"
+  variants={addressVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.5 }}
+>
+  {/* Email Line */}
+  <div className="flex items-center justify-center text-gray-600">
+    <EmailIcon className="h-6 w-6 mr-2" />
+    <span>mdsrsakin2001@gmail.com</span>
+  </div>
+
+  {/* Location and Phone Line */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 text-gray-600">
+    <div className="flex items-center justify-center">
+      <LocationIcon className="h-6 w-6 mr-2" />
+      <span>Dhaka, Bangladesh</span>
+    </div>
+    <div className="flex items-center justify-center">
+      <PhoneIcon className="h-6 w-6 mr-2" />
+      <span>+880 1234-567890</span> {/* Replace with your number */}
+    </div>
+  </div>
+</motion.div>
+
+
+
 
       </motion.div>
 
