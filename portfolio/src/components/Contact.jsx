@@ -179,7 +179,7 @@ const Contact = () => {
   {/* Email Line */}
   <div className="flex items-center justify-center text-gray-600">
     <EmailIcon className="h-6 w-6 mr-2" />
-    <span>mdsrsakin2001@gmail.com</span>
+    <span>www.mdsrsakin2001@gmail.com</span>
   </div>
 
   {/* Location and Phone Line */}
