@@ -190,7 +190,7 @@ const Contact = () => {
     </div>
     <div className="flex items-center justify-center">
       <PhoneIcon className="h-6 w-6 mr-2" />
-      <span>+880 1234-567890</span> {/* Replace with your number */}
+      <span>+880 1823-024067</span> {/* Replace with your number */}
     </div>
   </div>
 </motion.div>
