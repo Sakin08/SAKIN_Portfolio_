@@ -54,7 +54,7 @@ const Project = () => {
     "A C++ terminal-based calculator supporting all essential matrix operations like addition, multiplication, inverse, and determinant.",
   image: assets.matrix,
   github: "https://github.com/Sakin08/Matrix-Calculator",
-  live: "", // leave empty or add a demo link if available
+  live: "https://github.com/Sakin08/Matrix-Calculator", // leave empty or add a demo link if available
 },
 
 
@@ -65,7 +65,7 @@ const Project = () => {
     "A static front page of Netflix built using HTML and CSS, and visually similar to the original.",
   image: assets.netflix,
   github: "https://github.com/Sakin08/NETFLIX_CLONE",
-  live: "https://your-netflix-clone-live-link.com",
+  live: "https://netflix-clone-one-livid.vercel.app/",
 },
 
    {
@@ -75,7 +75,7 @@ const Project = () => {
     "A static front page of Amazon built using HTML and CSS, mimicking the layout and design.",
   image: assets.amazon,
   github: "https://github.com/Sakin08/Amazon_Fornt_page_clone",
-  live: "https://your-amazon-clone-live-link.com",
+  live: "https://amazon-fornt-page-clone.vercel.app/",
 },
 
     {
@@ -85,7 +85,7 @@ const Project = () => {
         "A clean and modern personal profile card with social links and contact information built using HTML and CSS.",
       image: assets.profilecard, // ✅ Correct
       github: "https://github.com/Sakin08/PROFILE_CARD",
-      live: "https://your-profile-card-live-link.com",
+      live: "https://profile-card-kappa-gilt.vercel.app/",
     },
   ];
 
