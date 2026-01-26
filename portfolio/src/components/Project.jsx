@@ -1,4 +1,3 @@
-import React from "react";
 import { assets } from "../assets";
 
 // Inline SVG Icons
@@ -23,63 +22,73 @@ const Project = () => {
   const projects = [
     {
       id: 1,
-      name: "Doctors Appointment Booking (developing phase)",
+      name: "SUST Connect",
       description:
-        "A full-featured appointment booking system for doctors and patients with scheduling, notifications, and patient management.",
-      image: "https://placehold.co/600x400/FF6F61/FFFFFF?text=Doctors+Appointment+Booking",
-      github: "https://github.com/Sakin08/doctors-appointment-booking",
-      live: "https://your-doctors-appointment-live-link.com",
+        "A comprehensive campus social networking and management platform with secure JWT authentication, real-time messaging, social networking, campus marketplace, event management, food ordering, blood donation network, digital election system, and study groups.",
+      image: "/sustconnect.png",
+      github: "https://github.com/Sakin08/sust-connect", // Update with actual repo URL
+      live: "https://sust-connect.vercel.app/", // Update with actual live URL
+      tech: "React 19 • Node.js • Express • MongoDB • Socket.IO • Tailwind CSS • Cloudinary"
     },
     {
-  id: 7,
-  name: "Math Game App (Kotlin)",
-  description: "A fun and educational math game app for primary school students built using Kotlin. Includes addition, subtraction, and multiplication challenges with scoring.",
-  image: "https://i.postimg.cc/hPMwF45n/photo-2025-06-25-12-14-36.jpg",
-  github: "https://github.com/Sakin08/Math-Game", // Replace with actual repo if different
-  live: "https://drive.google.com/drive/u/0/folders/1mS2Bc1fHq2gF_I9y66PkF4b8jbZxyucl",
-},
+      id: 2,
+      name: "Medicare - Doctor's Appointment Booking System ",
+      description:
+        "A full-featured appointment booking system for doctors and patients with scheduling, notifications, and patient management.",
+      image: "/medicare.png",
+      github: "https://github.com/Sakin08/Doctors-Appointment-Booking-system",
+      live: "https://medicare-two-rosy.vercel.app/",
+    },
+    {
+      id: 3,
+      name: "Math Game App (Kotlin)",
+      description: "A fun and educational math game app for primary school students built using Kotlin. Includes addition, subtraction, and multiplication challenges with scoring.",
+      image: "https://i.postimg.cc/hPMwF45n/photo-2025-06-25-12-14-36.jpg",
+      github: "https://github.com/Sakin08/Math-Game", // Replace with actual repo if different
+      live: "https://medicare-two-rosy.vercel.app/",
+    },
 
     {
-  id: 6,
-  name: "To-Do List App (Kotlin)",
-  description: "A simple and intuitive To-Do list Android app built using Kotlin. Features include task creation, deletion, completion toggling, and persistent local storage.",
-  image: assets.todolist, // Or replace with a real screenshot later
-  github: "https://github.com/Sakin08/To-Do-List", // Update if different
-  live: "https://drive.google.com/drive/u/0/folders/1xI3QK2TBbC-tojB8d0nebubm8MeNuqG7", 
-},
-  {
-  id: 2,
-  name: "Matrix Calculator",
-  description:
-    "A C++ terminal-based calculator supporting all essential matrix operations like addition, multiplication, inverse, and determinant.",
-  image: assets.matrix,
-  github: "https://github.com/Sakin08/Matrix-Calculator",
-  live: "https://github.com/Sakin08/Matrix-Calculator", // leave empty or add a demo link if available
-},
-
-
-  {
-  id: 3,
-  name: "Netflix front page Clone",
-  description:
-    "A static front page of Netflix built using HTML and CSS, and visually similar to the original.",
-  image: assets.netflix,
-  github: "https://github.com/Sakin08/NETFLIX_CLONE",
-  live: "https://netflix-clone-one-livid.vercel.app/",
-},
-
-   {
-  id: 4,
-  name: "Amazon front page Clone",
-  description:
-    "A static front page of Amazon built using HTML and CSS, mimicking the layout and design.",
-  image: assets.amazon,
-  github: "https://github.com/Sakin08/Amazon_Fornt_page_clone",
-  live: "https://amazon-fornt-page-clone.vercel.app/",
-},
-
+      id: 4,
+      name: "To-Do List App (Kotlin)",
+      description: "A simple and intuitive To-Do list Android app built using Kotlin. Features include task creation, deletion, completion toggling, and persistent local storage.",
+      image: assets.todolist, // Or replace with a real screenshot later
+      github: "https://github.com/Sakin08/To-Do-List", // Update if different
+      live: "https://drive.google.com/drive/u/0/folders/1xI3QK2TBbC-tojB8d0nebubm8MeNuqG7",
+    },
     {
       id: 5,
+      name: "Matrix Calculator",
+      description:
+        "A C++ terminal-based calculator supporting all essential matrix operations like addition, multiplication, inverse, and determinant.",
+      image: assets.matrix,
+      github: "https://github.com/Sakin08/Matrix-Calculator",
+      live: "https://github.com/Sakin08/Matrix-Calculator", // leave empty or add a demo link if available
+    },
+
+
+    {
+      id: 6,
+      name: "Netflix front page Clone",
+      description:
+        "A static front page of Netflix built using HTML and CSS, and visually similar to the original.",
+      image: assets.netflix,
+      github: "https://github.com/Sakin08/NETFLIX_CLONE",
+      live: "https://netflix-clone-one-livid.vercel.app/",
+    },
+
+    {
+      id: 7,
+      name: "Amazon front page Clone",
+      description:
+        "A static front page of Amazon built using HTML and CSS, mimicking the layout and design.",
+      image: assets.amazon,
+      github: "https://github.com/Sakin08/Amazon_Fornt_page_clone",
+      live: "https://amazon-fornt-page-clone.vercel.app/",
+    },
+
+    {
+      id: 8,
       name: "Profile Card",
       description:
         "A clean and modern personal profile card with social links and contact information built using HTML and CSS.",
