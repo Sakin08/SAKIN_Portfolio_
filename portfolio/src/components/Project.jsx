@@ -45,7 +45,7 @@ const Project = () => {
       description: "A fun and educational math game app for primary school students built using Kotlin. Includes addition, subtraction, and multiplication challenges with scoring.",
       image: "https://i.postimg.cc/hPMwF45n/photo-2025-06-25-12-14-36.jpg",
       github: "https://github.com/Sakin08/Math-Game", // Replace with actual repo if different
-      live: "https://medicare-two-rosy.vercel.app/",
+      live: "https://drive.google.com/drive/u/0/folders/1T4k7SpmQfL5B2ffbfYfmixWVrCAClrnr",
     },
 
     {
@@ -94,7 +94,7 @@ const Project = () => {
         "A clean and modern personal profile card with social links and contact information built using HTML and CSS.",
       image: assets.profilecard, // ✅ Correct
       github: "https://github.com/Sakin08/PROFILE_CARD",
-      live: "https://profile-card-kappa-gilt.vercel.app/",
+      live: "https://profile-card-ten-xi.vercel.app/",
     },
   ];
 
