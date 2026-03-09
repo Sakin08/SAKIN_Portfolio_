@@ -41,15 +41,45 @@ const Project = () => {
     },
     {
       id: 3,
+      name: "SUST Student Election Management System",
+      description:
+        "A secure online election platform for SUST students, supporting hall-specific and university-wide elections, multi-position voting, panel-based and independent candidates with Google OAuth authentication and real-time voting.",
+      image: "/election1.png",
+      github: "https://github.com/Sakin08/SUST-Student-Election-Management-System",
+      live: "https://sust-student-election-management-sy.vercel.app/",
+      tech: "React 18 • Node.js • Express • MongoDB • Tailwind CSS • Passport.js • JWT"
+    },
+    {
+      id: 4,
+      name: "Smart Attendance System (Web)",
+      description:
+        "A comprehensive QR code and GPS-based attendance tracking system for universities. Teachers can create sessions with location and time restrictions, and students mark attendance using QR codes verified with GPS.",
+      image: "/attendence-web.png",
+      github: "https://github.com/Sakin08/Smart-Attendance-System",
+      live: "https://smart-attendance-system-u5hv.vercel.app/",
+      tech: "React 18 • Node.js • Express • MongoDB • Tailwind CSS • Leaflet • html5-qrcode"
+    },
+    {
+      id: 5,
+      name: "Smart Attendance System (Mobile App)",
+      description:
+        "A mobile app complementing the web system for students to mark attendance in real-time using QR codes and GPS verification. Fully synchronized with the web backend for live session validation.",
+      image: "/attendence-app.png",
+      github: "https://github.com/Sakin08/Smart-Attendance-App",
+      live: "https://drive.google.com/drive/u/0/folders/1jZE3QClGqt7Jv7hMMb4_H4sdAJ49O416",
+      tech: "React Native • Node.js • Express • MongoDB • JWT"
+    },
+    {
+      id: 6,
       name: "Math Game App (Kotlin)",
       description: "A fun and educational math game app for primary school students built using Kotlin. Includes addition, subtraction, and multiplication challenges with scoring.",
       image: "https://i.postimg.cc/hPMwF45n/photo-2025-06-25-12-14-36.jpg",
       github: "https://github.com/Sakin08/Math-Game", // Replace with actual repo if different
-      live: "https://drive.google.com/drive/u/0/folders/1T4k7SpmQfL5B2ffbfYfmixWVrCAClrnr",
+      live: "https://drive.google.com/drive/u/0/folders/1bYtwpBYg47_kr2LJBOy6jR3zlt6V5xe1",
     },
 
     {
-      id: 4,
+      id: 7,
       name: "To-Do List App (Kotlin)",
       description: "A simple and intuitive To-Do list Android app built using Kotlin. Features include task creation, deletion, completion toggling, and persistent local storage.",
       image: assets.todolist, // Or replace with a real screenshot later
@@ -57,7 +87,7 @@ const Project = () => {
       live: "https://drive.google.com/drive/u/0/folders/1xI3QK2TBbC-tojB8d0nebubm8MeNuqG7",
     },
     {
-      id: 5,
+      id: 8,
       name: "Matrix Calculator",
       description:
         "A C++ terminal-based calculator supporting all essential matrix operations like addition, multiplication, inverse, and determinant.",
@@ -68,7 +98,7 @@ const Project = () => {
 
 
     {
-      id: 6,
+      id: 9,
       name: "Netflix front page Clone",
       description:
         "A static front page of Netflix built using HTML and CSS, and visually similar to the original.",
@@ -78,7 +108,7 @@ const Project = () => {
     },
 
     {
-      id: 7,
+      id: 10,
       name: "Amazon front page Clone",
       description:
         "A static front page of Amazon built using HTML and CSS, mimicking the layout and design.",
@@ -88,13 +118,13 @@ const Project = () => {
     },
 
     {
-      id: 8,
+      id: 11,
       name: "Profile Card",
       description:
         "A clean and modern personal profile card with social links and contact information built using HTML and CSS.",
       image: assets.profilecard, // ✅ Correct
       github: "https://github.com/Sakin08/PROFILE_CARD",
-      live: "https://profile-card-ten-xi.vercel.app/",
+      live: "https://profile-card-kappa-gilt.vercel.app/",
     },
   ];
 
@@ -110,7 +140,11 @@ const Project = () => {
               key={project.id}
               className="bg-white rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl"
             >
-              <img src={project.image} alt={project.name} className="w-full h-56 object-cover" />
+              <img
+                src={project.image}
+                alt={project.name}
+                className={`w-full h-56 ${project.id === 4 ? 'object-contain' : 'object-cover'}`}
+              />
               <div className="p-6">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3">{project.name}</h3>
                 <p className="text-gray-700 mb-4">{project.description}</p>
