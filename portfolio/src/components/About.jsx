@@ -74,24 +74,32 @@ const About = () => {
           </motion.h2>
 
           <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            Hi, I'm <span className="font-semibold text-indigo-700">MD. Sohanoor Rahaman Sakin</span>, a Computer Science and Engineering student at Shahjalal University of Science and Technology (SUST).
+            I'm a <span className="font-semibold text-indigo-700">Computer Science Engineering student</span> at Shahjalal University of Science and Technology (SUST) with a passion for building scalable web applications and solving complex problems through code.
           </motion.p>
 
           <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            I’m currently learning and improving my skills in programming and web development. I have basic knowledge of <span className="text-purple-700 font-medium">C, C++, Java, and Python</span>, and I enjoy exploring how technology can solve real-world problems.
+            Specializing in <span className="text-purple-700 font-medium">full-stack development</span> with the MERN stack, I've built 10+ projects including social platforms, healthcare systems, and mobile applications as learning projects and portfolio demonstrations.
           </motion.p>
 
           <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            I'm also learning full-stack web development using tools like <span className="font-medium text-purple-700">HTML, CSS, JavaScript, React, Node.js, and MongoDB</span>. I enjoy building modern, efficient, and user-friendly applications.
+            My technical expertise spans <span className="font-medium text-purple-700">React, Node.js, MongoDB, React Native, and Kotlin</span>. I'm particularly interested in creating user-centered solutions with clean, maintainable code and modern development practices.
           </motion.p>
 
-          <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            I love to collaborate, learn continuously, and take on new challenges. My interests include <span className="text-indigo-700 font-medium">problem-solving, making MERN projects</span>.
-          </motion.p>
+          <motion.div className="bg-indigo-50 p-4 rounded-lg mb-6" variants={textVariants}>
+            <h3 className="font-semibold text-indigo-900 mb-2">Currently Working On:</h3>
+            <p className="text-indigo-700">Expanding SUST Connect platform and exploring advanced React patterns, microservices architecture, and cloud deployment strategies.</p>
+          </motion.div>
 
-          <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            Currently, I'm working on a Doctors Appointment system booking web app project and exploring more about APIs, authentication, and scalable frontend design.
-          </motion.p>
+          <motion.div className="grid grid-cols-2 gap-4 mb-6" variants={textVariants}>
+            <div className="text-center p-3 bg-blue-50 rounded-lg">
+              <div className="text-2xl font-bold text-blue-600">10+</div>
+              <div className="text-sm text-blue-700">Projects Built</div>
+            </div>
+            <div className="text-center p-3 bg-green-50 rounded-lg">
+              <div className="text-2xl font-bold text-green-600">3+</div>
+              <div className="text-sm text-green-700">Years Learning</div>
+            </div>
+          </motion.div>
 
           <motion.button
             onClick={() => scrollToSection("projects")}

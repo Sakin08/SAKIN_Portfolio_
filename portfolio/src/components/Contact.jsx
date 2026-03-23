@@ -71,22 +71,34 @@ const Contact = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    formData.append("access_key", "49c4736c-0179-4719-b3a7-1abb118c3f9f");
+    // Use environment variable for access key
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "49c4736c-0179-4719-b3a7-1abb118c3f9f";
+    formData.append("access_key", accessKey);
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: json
-    }).then((res) => res.json());
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
+      });
 
-    if (res.success) {
-      alert(res.message);
+      const result = await res.json();
+
+      if (result.success) {
+        alert("Message sent successfully! I'll get back to you soon.");
+        event.target.reset();
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Failed to send message. Please try again.");
     }
   };
 
@@ -169,31 +181,31 @@ const Contact = () => {
 
         {/* The social media links and general email have been moved to the Footer component */}
 
-   <motion.div
-  className="mt-8 text-center text-gray-700 space-y-4"
-  variants={addressVariants}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.5 }}
->
-  {/* Email Line */}
-  <div className="flex items-center justify-center text-gray-600">
-    <EmailIcon className="h-6 w-6 mr-2" />
-    <span>www.mdsrsakin2001@gmail.com</span>
-  </div>
+        <motion.div
+          className="mt-8 text-center text-gray-700 space-y-4"
+          variants={addressVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          {/* Email Line */}
+          <div className="flex items-center justify-center text-gray-600">
+            <EmailIcon className="h-6 w-6 mr-2" />
+            <span>www.mdsrsakin2001@gmail.com</span>
+          </div>
 
-  {/* Location and Phone Line */}
-  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 text-gray-600">
-    <div className="flex items-center justify-center">
-      <LocationIcon className="h-6 w-6 mr-2" />
-      <span>Dhaka, Bangladesh</span>
-    </div>
-    <div className="flex items-center justify-center">
-      <PhoneIcon className="h-6 w-6 mr-2" />
-      <span>+880 1823-024067</span> {/* Replace with your number */}
-    </div>
-  </div>
-</motion.div>
+          {/* Location and Phone Line */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 text-gray-600">
+            <div className="flex items-center justify-center">
+              <LocationIcon className="h-6 w-6 mr-2" />
+              <span>Dhaka, Bangladesh</span>
+            </div>
+            <div className="flex items-center justify-center">
+              <PhoneIcon className="h-6 w-6 mr-2" />
+              <span>+880 1823-024067</span> {/* Replace with your number */}
+            </div>
+          </div>
+        </motion.div>
 
 
 

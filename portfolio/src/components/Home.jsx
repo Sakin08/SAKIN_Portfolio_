@@ -11,7 +11,7 @@ const scrollToSection = (id, offset = -70) => {
 };
 
 const Home = () => {
-  const roles = ["CSE Student and", "Full Stack Web Developer"];
+  const roles = ["Full Stack Developer", "MERN Stack Specialist", "React Developer"];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayedRole, setDisplayedRole] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -108,20 +108,26 @@ const Home = () => {
           className="flex-1 text-center md:text-left space-y-4"
         >
           <motion.p variants={itemVariants} className="text-xl md:text-2xl text-indigo-700 font-semibold mb-2">
-            Hi, my name is
+            👋 Hi, I'm
           </motion.p>
           <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
             MD. SOHANOOR RAHAMAN <span className="text-purple-700">SAKIN</span>
           </motion.h1>
-          <motion.h2 variants={itemVariants} className="text-2xl md:text-4xl font-semibold text-gray-700 min-h-[3rem] whitespace-nowrap">
-            I'm a{" "}
+          <motion.h2 variants={itemVariants} className="text-2xl md:text-4xl font-semibold text-gray-700 min-h-[3rem]">
             <span className="text-pink-600 font-bold tracking-wide">{displayedRole}</span>
             <span className="inline-block w-1 h-8 bg-pink-600 ml-1 align-bottom animate-blink"></span>
           </motion.h2>
           <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl mx-auto md:mx-0 pt-2">
-            Passionate about building innovative web applications from front to back. I love to create efficient, scalable, and user-friendly
-            solutions.
+            Building scalable web applications with <span className="font-semibold text-indigo-700">React, Node.js, and MongoDB</span>.
+            Specialized in creating responsive, user-friendly solutions that solve real-world problems.
           </motion.p>
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6 justify-center md:justify-start">
+            {["React", "Node.js", "MongoDB", "JavaScript", "Tailwind CSS"].map((tech) => (
+              <span key={tech} className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+                {tech}
+              </span>
+            ))}
+          </motion.div>
           <motion.div variants={itemVariants} className="pt-4 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
             <motion.button
               onClick={() => scrollToSection("projects")}

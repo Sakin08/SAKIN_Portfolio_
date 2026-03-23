@@ -7,10 +7,11 @@ import Project from "./components/Project";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
-    <>
+    <ErrorBoundary>
       <Navbar />
 
       <Element name="home">
@@ -20,7 +21,7 @@ function App() {
       <Element name="about">
         <About />
       </Element>
- 
+
       <Element name="projects">
         <Project />
       </Element>
@@ -33,7 +34,7 @@ function App() {
         <Contact />
       </Element>
       <Footer />
-    </>
+    </ErrorBoundary>
   );
 }
 

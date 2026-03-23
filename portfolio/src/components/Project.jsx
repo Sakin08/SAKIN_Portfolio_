@@ -1,177 +1,166 @@
-import { assets } from "../assets";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { projects, featuredProjects } from "../data/projects";
+import ProjectModal from "./ProjectModal";
 
-// Inline SVG Icons
-const GithubIcon = ({ className = "h-6 w-6" }) => (
+// Icons
+const GithubIcon = ({ className = "h-5 w-5" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path
-      fillRule="evenodd"
-      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504..."
-      clipRule="evenodd"
-    />
+    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
   </svg>
 );
 
-const PersonLinesIcon = ({ className = "h-6 w-6" }) => (
+const ExternalLinkIcon = ({ className = "h-5 w-5" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292..." />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
   </svg>
 );
 
-// Component
-const Project = () => {
-  const projects = [
-    {
-      id: 1,
-      name: "SUST Connect",
-      description:
-        "A comprehensive campus social networking and management platform with secure JWT authentication, real-time messaging, social networking, campus marketplace, event management, food ordering, blood donation network, digital election system, and study groups.",
-      image: "/sustconnect.png",
-      github: "https://github.com/Sakin08/sust-connect", // Update with actual repo URL
-      live: "https://sust-connect.vercel.app/", // Update with actual live URL
-      tech: "React 19 • Node.js • Express • MongoDB • Socket.IO • Tailwind CSS • Cloudinary"
-    },
-    {
-      id: 2,
-      name: "Medicare - Doctor's Appointment Booking System ",
-      description:
-        "A full-featured appointment booking system for doctors and patients with scheduling, notifications, and patient management.",
-      image: "/medicare.png",
-      github: "https://github.com/Sakin08/Doctors-Appointment-Booking-system",
-      live: "https://medicare-two-rosy.vercel.app/",
-    },
-    {
-      id: 3,
-      name: "SUST Student Election Management System",
-      description:
-        "A secure online election platform for SUST students, supporting hall-specific and university-wide elections, multi-position voting, panel-based and independent candidates with Google OAuth authentication and real-time voting.",
-      image: "/election1.png",
-      github: "https://github.com/Sakin08/SUST-Student-Election-Management-System",
-      live: "https://sust-student-election-management-sy.vercel.app/",
-      tech: "React 18 • Node.js • Express • MongoDB • Tailwind CSS • Passport.js • JWT"
-    },
-    {
-      id: 4,
-      name: "Smart Attendance System (Web)",
-      description:
-        "A comprehensive QR code and GPS-based attendance tracking system for universities. Teachers can create sessions with location and time restrictions, and students mark attendance using QR codes verified with GPS.",
-      image: "/attendence-web.png",
-      github: "https://github.com/Sakin08/Smart-Attendance-System",
-      live: "https://smart-attendance-system-u5hv.vercel.app/",
-      tech: "React 18 • Node.js • Express • MongoDB • Tailwind CSS • Leaflet • html5-qrcode"
-    },
-    {
-      id: 5,
-      name: "Smart Attendance System (Mobile App)",
-      description:
-        "A mobile app complementing the web system for students to mark attendance in real-time using QR codes and GPS verification. Fully synchronized with the web backend for live session validation.",
-      image: "/attendence-app.png",
-      github: "https://github.com/Sakin08/Smart-Attendance-App",
-      live: "https://drive.google.com/drive/u/0/folders/1jZE3QClGqt7Jv7hMMb4_H4sdAJ49O416",
-      tech: "React Native • Node.js • Express • MongoDB • JWT"
-    },
-    {
-      id: 6,
-      name: "Math Game App (Kotlin)",
-      description: "A fun and educational math game app for primary school students built using Kotlin. Includes addition, subtraction, and multiplication challenges with scoring.",
-      image: "https://i.postimg.cc/hPMwF45n/photo-2025-06-25-12-14-36.jpg",
-      github: "https://github.com/Sakin08/Math-Game", // Replace with actual repo if different
-      live: "https://drive.google.com/drive/u/0/folders/1bYtwpBYg47_kr2LJBOy6jR3zlt6V5xe1",
-    },
-
-    {
-      id: 7,
-      name: "To-Do List App (Kotlin)",
-      description: "A simple and intuitive To-Do list Android app built using Kotlin. Features include task creation, deletion, completion toggling, and persistent local storage.",
-      image: assets.todolist, // Or replace with a real screenshot later
-      github: "https://github.com/Sakin08/To-Do-List", // Update if different
-      live: "https://drive.google.com/drive/u/0/folders/1xI3QK2TBbC-tojB8d0nebubm8MeNuqG7",
-    },
-    {
-      id: 8,
-      name: "Matrix Calculator",
-      description:
-        "A C++ terminal-based calculator supporting all essential matrix operations like addition, multiplication, inverse, and determinant.",
-      image: assets.matrix,
-      github: "https://github.com/Sakin08/Matrix-Calculator",
-      live: "https://github.com/Sakin08/Matrix-Calculator", // leave empty or add a demo link if available
-    },
-
-
-    {
-      id: 9,
-      name: "Netflix front page Clone",
-      description:
-        "A static front page of Netflix built using HTML and CSS, and visually similar to the original.",
-      image: assets.netflix,
-      github: "https://github.com/Sakin08/NETFLIX_CLONE",
-      live: "https://netflix-clone-one-livid.vercel.app/",
-    },
-
-    {
-      id: 10,
-      name: "Amazon front page Clone",
-      description:
-        "A static front page of Amazon built using HTML and CSS, mimicking the layout and design.",
-      image: assets.amazon,
-      github: "https://github.com/Sakin08/Amazon_Fornt_page_clone",
-      live: "https://amazon-fornt-page-clone.vercel.app/",
-    },
-
-    {
-      id: 11,
-      name: "Profile Card",
-      description:
-        "A clean and modern personal profile card with social links and contact information built using HTML and CSS.",
-      image: assets.profilecard, // ✅ Correct
-      github: "https://github.com/Sakin08/PROFILE_CARD",
-      live: "https://profile-card-kappa-gilt.vercel.app/",
-    },
-  ];
-
+const ProjectCard = ({ project, onViewCaseStudy }) => {
   return (
-    <section id="projects" className="w-full min-h-screen bg-gray-50 flex flex-col items-center py-20 px-4">
-      <div className="max-w-6xl mx-auto w-full">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center border-b-4 border-blue-600 inline-block pb-1">
-          My Projects
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-white rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-2xl"
-            >
-              <img
-                src={project.image}
-                alt={project.name}
-                className={`w-full h-56 ${project.id === 4 ? 'object-contain' : 'object-cover'}`}
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">{project.name}</h3>
-                <p className="text-gray-700 mb-4">{project.description}</p>
-                <div className="flex justify-around mt-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors duration-200"
-                  >
-                    <GithubIcon className="h-5 w-5" /> <span>Code</span>
-                  </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-                  >
-                    <PersonLinesIcon className="h-5 w-5" /> <span>Live Demo</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+    <motion.div
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="relative">
+        <img
+          src={project.image}
+          alt={project.name}
+          className="w-full h-48 object-cover"
+        />
+        <div className="absolute top-4 right-4">
+          <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full font-medium">
+            {project.category}
+          </span>
         </div>
       </div>
-    </section>
+
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{project.name}</h3>
+            <p className="text-sm text-blue-600 font-medium">{project.tagline}</p>
+          </div>
+        </div>
+
+        <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
+
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tech.slice(0, 3).map((tech) => (
+            <span key={tech} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md font-medium">
+              {tech}
+            </span>
+          ))}
+          {project.tech.length > 3 && (
+            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md font-medium">
+              +{project.tech.length - 3} more
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between mt-4 pt-4 border-t">
+          <button
+            onClick={() => onViewCaseStudy(project)}
+            className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors hover:underline"
+          >
+            View Case Study
+          </button>
+
+          <div className="flex gap-3">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-1.5 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-sm"
+            >
+              <GithubIcon className="h-4 w-4" />
+              Code
+            </a>
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+            >
+              <ExternalLinkIcon className="h-4 w-4" />
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const Project = () => {
+  const [showAll, setShowAll] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const displayProjects = showAll ? projects : featuredProjects;
+
+  const handleViewCaseStudy = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
+  return (
+    <>
+      <section id="projects" className="w-full min-h-screen bg-gray-50 py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Featured Projects
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Here are some of my recent projects that showcase my skills in full-stack development,
+              problem-solving, and creating user-centered solutions.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {displayProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onViewCaseStudy={handleViewCaseStudy}
+              />
+            ))}
+          </div>
+
+          {!showAll && projects.length > featuredProjects.length && (
+            <div className="text-center">
+              <button
+                onClick={() => setShowAll(true)}
+                className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                View All Projects ({projects.length - featuredProjects.length} more)
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
+    </>
   );
 };
 
