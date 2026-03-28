@@ -1,187 +1,247 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { navItemHover } from "../utils/animations";
 
-// ==== ICONS ====
-const BarsIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+// Social Icons
+const GithubIcon = ({ className = "h-5 w-5" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
   </svg>
 );
 
-const TimesIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+const LinkedInIcon = ({ className = "h-5 w-5" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
-const GithubIcon = ({ className = "h-6 w-6" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 
-    0-.237-.008-.867-.013-1.702-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.909-.623.069-.61.069-.61 
-    1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.087 2.91.829.091-.645.356-1.087.654-1.334-2.22-.253-4.555-1.113-4.555-4.93 
-    0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.268 2.75 1.025A9.435 9.435 0 0112 6.844c.85.004 1.705.115 
-    2.504.337 1.909-1.293 2.747-1.025 2.747-1.025.546 1.379.202 2.398.099 2.65.64.698 1.028 1.591 1.028 2.682 
-    0 3.827-2.338 4.673-4.562 4.922.357.309.676.92.676 1.855 0 1.334-.012 2.41-.012 2.727 0 .268.18.579.688.482C21.137 20.198 
-    24 16.442 24 12.017 24 6.484 19.522 2 14 2h-2z" clipRule="evenodd" />
-  </svg>
-);
-
-const LinkedinIcon = ({ className = "h-6 w-6" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 
-    0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 
-    0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 
-    1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 
-    0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.784 
-    7 2.476v6.759z" clipRule="evenodd" />
-  </svg>
-);
-
-// ==== SCROLL FUNCTION ====
-const scrollToSection = (id, offset = -70) => {
-  const element = document.getElementById(id);
-  if (element) {
-    const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }
-};
-
-// ==== ANIMATED NAME ====
-const AnimatedName = () => {
-  const name = "MD. SAKIN".split("");
-
-  return (
-    <div
-      onClick={() => scrollToSection("home")}
-      className="flex space-x-1 cursor-pointer select-none"
-    >
-      {name.map((char, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.05, type: "spring", stiffness: 120 }}
-          whileHover={{
-            scale: 1.2,
-            color: "#6366f1",
-            textShadow: "0 0 6px rgba(99, 102, 241, 0.4)",
-          }}
-          className="text-xl md:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"
-        >
-          {char}
-        </motion.span>
-      ))}
-    </div>
-  );
-};
-
-
-// ==== NAVBAR ====
 const Navbar = () => {
-  const navItems = ["home", "about", "projects", "skills", "contact"];
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const githubUrl = "https://github.com/Sakin08";
-  const linkedinUrl = "https://www.linkedin.com/in/md-sohanoor-rahaman-sakin-7006b824b/";
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    { id: "contact", label: "Contact" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      const sections = navItems.map(item => document.getElementById(item));
-      const scrollPosition = window.scrollY + 71;
+    };
+
+    const handleSectionChange = () => {
+      const sections = navItems.map(item => item.id);
+      const scrollPosition = window.scrollY + 100;
+
       for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && sections[i].offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i]);
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
           break;
         }
       }
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleSectionChange);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleSectionChange);
+    };
   }, []);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <motion.nav
-      initial={{ y: -80 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50"
+        : "bg-transparent"
+        }`}
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-lg ${
-        isScrolled ? "bg-white/70 shadow-lg py-2" : "bg-white/30 py-3"
-      }`}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
-        {/* Animated Name */}
-        <AnimatedName />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <motion.div
+            className="flex-shrink-0"
+            variants={navItemHover}
+            initial="rest"
+            whileHover="hover"
+          >
+            <button
+              onClick={() => scrollToSection("home")}
+              className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+            >
+              MD.SAKIN
+            </button>
+          </motion.div>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex space-x-8 items-center">
-          {navItems.map((item) => (
-            <motion.li key={item} whileHover={{ scale: 1.1 }}>
-              <button
-                onClick={() => scrollToSection(item)}
-                className={`capitalize text-gray-800 text-lg font-medium relative before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-blue-600 before:transition-all before:duration-300 hover:before:w-full hover:text-blue-600 transition-transform duration-200 ease-in-out ${
-                  activeSection === item ? "text-blue-600 before:w-full" : ""
-                }`}
-              >
-                {item}
-              </button>
-            </motion.li>
-          ))}
-          <li className="ml-6 flex space-x-4">
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600">
-              <GithubIcon />
-            </a>
-            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600">
-              <LinkedinIcon />
-            </a>
-          </li>
-        </ul>
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-1">
+              {navItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${activeSection === item.id
+                    ? "text-blue-400"
+                    : "text-gray-300 hover:text-white"
+                    }`}
+                  variants={navItemHover}
+                  initial="rest"
+                  whileHover="hover"
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      className="absolute inset-0 bg-blue-500/10 rounded-lg border border-blue-500/20"
+                      layoutId="activeTab"
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
+          </div>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden flex items-center">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800 text-2xl focus:outline-none">
-            {isOpen ? <TimesIcon /> : <BarsIcon />}
-          </button>
+          {/* Social Links */}
+          <div className="hidden md:flex items-center gap-3">
+            <motion.a
+              href="https://github.com/Sakin08"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-all duration-200 border border-gray-600/50 hover:border-gray-500"
+              variants={navItemHover}
+              initial="rest"
+              whileHover="hover"
+              whileTap="tap"
+            >
+              <GithubIcon className="h-5 w-5" />
+            </motion.a>
+
+            <motion.a
+              href="https://www.linkedin.com/in/md-sohanoor-rahaman-sakin-7006b824b/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 border border-gray-600/50 hover:border-blue-500/50"
+              variants={navItemHover}
+              initial="rest"
+              whileHover="hover"
+              whileTap="tap"
+            >
+              <LinkedInIcon className="h-5 w-5" />
+            </motion.a>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <motion.button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="sr-only">Open main menu</span>
+              <div className="w-6 h-6 relative">
+                <motion.span
+                  className="absolute h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={{
+                    rotate: isMobileMenuOpen ? 45 : 0,
+                    y: isMobileMenuOpen ? 0 : -8
+                  }}
+                />
+                <motion.span
+                  className="absolute h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={{
+                    opacity: isMobileMenuOpen ? 0 : 1
+                  }}
+                />
+                <motion.span
+                  className="absolute h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={{
+                    rotate: isMobileMenuOpen ? -45 : 0,
+                    y: isMobileMenuOpen ? 0 : 8
+                  }}
+                />
+              </div>
+            </motion.button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation Menu */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/90 backdrop-blur-md shadow-lg absolute top-full left-0 w-full py-4"
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            {navItems.map((item) => (
-              <li key={item} className="text-center py-3">
-                <button
-                  onClick={() => {
-                    scrollToSection(item);
-                    setIsOpen(false);
-                  }}
-                  className={`capitalize text-gray-800 text-lg font-medium hover:text-blue-600 transition duration-200 ${
-                    activeSection === item ? "text-blue-600 font-bold" : ""
-                  }`}
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${activeSection === item.id
+                    ? "text-blue-400 bg-blue-500/10"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
                 >
-                  {item}
-                </button>
-              </li>
-            ))}
-            <li className="flex justify-center space-x-6 py-4">
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-                <GithubIcon className="h-8 w-8 text-gray-700 hover:text-blue-600" />
-              </a>
-              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                <LinkedinIcon className="h-8 w-8 text-gray-700 hover:text-blue-600" />
-              </a>
-            </li>
-          </motion.ul>
+                  {item.label}
+                </motion.button>
+              ))}
+
+              {/* Mobile Social Links */}
+              <motion.div
+                className="flex gap-4 px-3 py-4 border-t border-gray-700/50 mt-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
+              >
+                <a
+                  href="https://github.com/Sakin08"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-all duration-200 border border-gray-600/50 hover:border-gray-500"
+                >
+                  <GithubIcon className="h-5 w-5" />
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/md-sohanoor-rahaman-sakin-7006b824b/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 text-gray-300 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 border border-gray-600/50 hover:border-blue-500/50"
+                >
+                  <LinkedInIcon className="h-5 w-5" />
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>

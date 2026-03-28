@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  staggerContainer,
+  projectCardVariants,
+  textReveal,
+  fadeInUp,
+  buttonHover,
+  viewportConfig
+} from "../utils/animations";
 import { projects, featuredProjects } from "../data/projects";
 import ProjectModal from "./ProjectModal";
 
@@ -12,82 +20,136 @@ const GithubIcon = ({ className = "h-5 w-5" }) => (
 
 const ExternalLinkIcon = ({ className = "h-5 w-5" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
   </svg>
 );
 
-const ProjectCard = ({ project, onViewCaseStudy }) => {
+const ProjectCard = ({ project, onViewCaseStudy, index }) => {
+  const getCategoryColor = (category) => {
+    switch (category) {
+      case "Full Stack": return "from-blue-500 to-cyan-500";
+      case "Mobile Development": return "from-purple-500 to-pink-500";
+      case "Frontend": return "from-green-500 to-emerald-500";
+      case "System Programming": return "from-orange-500 to-red-500";
+      default: return "from-gray-500 to-gray-600";
+    }
+  };
+
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      className="group bg-gray-800/30 border border-gray-700/50 rounded-2xl overflow-hidden backdrop-blur-sm hover:border-blue-500/30 transition-all duration-500"
+      variants={projectCardVariants}
+      initial="hidden"
+      whileInView="visible"
+      whileHover="hover"
+      viewport={viewportConfig}
+      transition={{ delay: index * 0.1 }}
     >
-      <div className="relative">
-        <img
+      {/* Project Image */}
+      <div className="relative overflow-hidden">
+        <motion.img
           src={project.image}
           alt={project.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
         />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Category Badge */}
         <div className="absolute top-4 right-4">
-          <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full font-medium">
+          <span className={`px-3 py-1 bg-gradient-to-r ${getCategoryColor(project.category)} text-white text-sm font-medium rounded-full shadow-lg`}>
             {project.category}
           </span>
         </div>
+
+        {/* Quick Actions */}
+        <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+          <motion.a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-900/80 text-white rounded-lg hover:bg-gray-800 transition-colors backdrop-blur-sm"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <GithubIcon className="h-4 w-4" />
+            <span className="text-sm">Code</span>
+          </motion.a>
+
+          <motion.a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-2 bg-blue-600/80 text-white rounded-lg hover:bg-blue-700 transition-colors backdrop-blur-sm"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ExternalLinkIcon className="h-4 w-4" />
+            <span className="text-sm">Live</span>
+          </motion.a>
+        </div>
       </div>
 
+      {/* Content */}
       <div className="p-6">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-1">{project.name}</h3>
-            <p className="text-sm text-blue-600 font-medium">{project.tagline}</p>
-          </div>
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">
+            {project.name}
+          </h3>
+          <p className="text-blue-400 font-medium text-sm mb-3">{project.tagline}</p>
+          <p className="text-gray-400 line-clamp-2 leading-relaxed">{project.description}</p>
         </div>
 
-        <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
-
-        <div className="flex flex-wrap gap-2 mb-4">
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-6">
           {project.tech.slice(0, 3).map((tech) => (
-            <span key={tech} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md font-medium">
+            <span
+              key={tech}
+              className="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs rounded-full border border-gray-600/50 hover:border-blue-500/50 hover:text-blue-400 transition-all duration-300"
+            >
               {tech}
             </span>
           ))}
           {project.tech.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-md font-medium">
+            <span className="px-3 py-1 bg-gray-700/50 text-gray-400 text-xs rounded-full border border-gray-600/50">
               +{project.tech.length - 3} more
             </span>
           )}
         </div>
 
-        <div className="flex items-center justify-between mt-4 pt-4 border-t">
-          <button
+        {/* Actions */}
+        <div className="flex items-center justify-between">
+          <motion.button
             onClick={() => onViewCaseStudy(project)}
-            className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors hover:underline"
+            className="text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors duration-300 hover:underline"
+            whileHover={{ x: 5 }}
           >
-            View Case Study
-          </button>
+            View Case Study →
+          </motion.button>
 
-          <div className="flex gap-3">
-            <a
+          <div className="flex gap-2">
+            <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-3 py-1.5 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-sm"
+              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-all duration-300"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
             >
               <GithubIcon className="h-4 w-4" />
-              Code
-            </a>
-            <a
+            </motion.a>
+
+            <motion.a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+              className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-300"
+              whileHover={{ scale: 1.1, rotate: -5 }}
+              whileTap={{ scale: 0.9 }}
             >
               <ExternalLinkIcon className="h-4 w-4" />
-              Live Demo
-            </a>
+            </motion.a>
           </div>
         </div>
       </div>
@@ -114,42 +176,87 @@ const Project = () => {
 
   return (
     <>
-      <section id="projects" className="w-full min-h-screen bg-gray-50 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section
+        id="projects"
+        className="relative py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900 overflow-hidden"
+      >
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Section Header */}
           <motion.div
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Here are some of my recent projects that showcase my skills in full-stack development,
-              problem-solving, and creating user-centered solutions.
-            </p>
+            <motion.h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              variants={textReveal}
+            >
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Featured
+              </span>{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                Projects
+              </span>
+            </motion.h2>
+
+            <motion.p
+              className="text-xl text-gray-400 max-w-3xl mx-auto mb-8"
+              variants={fadeInUp}
+            >
+              A showcase of my technical skills through real-world applications,
+              from full-stack web platforms to mobile solutions
+            </motion.p>
+
+            <motion.div
+              className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
+              variants={fadeInUp}
+            />
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {displayProjects.map((project) => (
+          {/* Projects Grid */}
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            {displayProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 onViewCaseStudy={handleViewCaseStudy}
+                index={index}
               />
             ))}
-          </div>
+          </motion.div>
 
+          {/* Show More Button */}
           {!showAll && projects.length > featuredProjects.length && (
-            <div className="text-center">
-              <button
+            <motion.div
+              className="text-center"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
+              <motion.button
                 onClick={() => setShowAll(true)}
-                className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                variants={buttonHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
               >
                 View All Projects ({projects.length - featuredProjects.length} more)
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           )}
         </div>
       </section>

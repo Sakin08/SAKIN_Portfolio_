@@ -117,7 +117,7 @@ portfolio/
 
 - **Email:** [mdsrsakin2001@gmail.com](mailto:mdsrsakin2001@gmail.com)
 - **GitHub:** [github.com/Sakin08](https://github.com/Sakin08)
-- **LinkedIn:** [Connect on LinkedIn](https://linkedin.com/in/mdsakin08)
+- **LinkedIn:** [Connect on LinkedIn](https://www.linkedin.com/in/md-sohanoor-rahaman-sakin-7006b824b/)
 - **Location:** Dhaka, Bangladesh
 
 ## 📄 License

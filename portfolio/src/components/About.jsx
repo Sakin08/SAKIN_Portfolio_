@@ -1,130 +1,232 @@
 import React from "react";
 import { motion } from "framer-motion";
+import {
+  fadeInUp,
+  fadeInLeft,
+  fadeInRight,
+  staggerContainer,
+  textReveal,
+  viewportConfig
+} from "../utils/animations";
 import profile from "../assets/profile.jpg";
 
 const About = () => {
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.2,
-      },
+  const stats = [
+    { number: "10+", label: "Projects Built", color: "from-blue-500 to-cyan-500" },
+    { number: "3+", label: "Years Learning", color: "from-purple-500 to-pink-500" },
+    { number: "5+", label: "Technologies", color: "from-green-500 to-emerald-500" },
+    { number: "100%", label: "Commitment", color: "from-orange-500 to-red-500" }
+  ];
+
+  const highlights = [
+    {
+      icon: "🎓",
+      title: "Computer Science Student",
+      description: "Studying at Shahjalal University of Science and Technology (SUST)"
     },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.2 },
+    {
+      icon: "💻",
+      title: "Full-Stack Developer",
+      description: "Specializing in MERN stack with modern development practices"
     },
-    hover: { scale: 1.05, rotate: 2, transition: { type: "spring", stiffness: 300 } },
-  };
+    {
+      icon: "🚀",
+      title: "Problem Solver",
+      description: "Building solutions that make a real impact on users' lives"
+    }
+  ];
 
-  const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      y: -5,
-      boxShadow:
-        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-      transition: { type: "spring", stiffness: 300 },
-    },
-    tap: { scale: 0.95 },
-  };
-
-  const scrollToSection = (id, offset = -70) => {
+  const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
-      window.scrollTo({ top: y, behavior: "smooth" });
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
   };
 
   return (
     <section
       id="about"
-      className="w-full min-h-screen bg-gradient-to-br from-gray-50 to-indigo-100 flex items-center py-20 px-4"
+      className="relative py-20 bg-gradient-to-b from-black via-gray-900 to-gray-900 overflow-hidden"
     >
-      <motion.div
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center px-4 md:px-8 lg:px-8"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        {/* Text Content */}
-        <div className="order-2 md:order-1 max-w-xl mx-auto md:mx-0">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
           <motion.h2
-            className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 relative pb-2"
-            variants={textVariants}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+            variants={textReveal}
           >
-            About Me
-            <span className="absolute bottom-0 left-0 w-24 h-1 bg-blue-600 rounded-full"></span>
+            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              About
+            </span>{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Me
+            </span>
           </motion.h2>
 
-          <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            I'm a <span className="font-semibold text-indigo-700">Computer Science Engineering student</span> at Shahjalal University of Science and Technology (SUST) with a passion for building scalable web applications and solving complex problems through code.
-          </motion.p>
-
-          <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            Specializing in <span className="text-purple-700 font-medium">full-stack development</span> with the MERN stack, I've built 10+ projects including social platforms, healthcare systems, and mobile applications as learning projects and portfolio demonstrations.
-          </motion.p>
-
-          <motion.p className="text-lg text-gray-700 leading-relaxed mb-4" variants={textVariants}>
-            My technical expertise spans <span className="font-medium text-purple-700">React, Node.js, MongoDB, React Native, and Kotlin</span>. I'm particularly interested in creating user-centered solutions with clean, maintainable code and modern development practices.
-          </motion.p>
-
-          <motion.div className="bg-indigo-50 p-4 rounded-lg mb-6" variants={textVariants}>
-            <h3 className="font-semibold text-indigo-900 mb-2">Currently Working On:</h3>
-            <p className="text-indigo-700">Expanding SUST Connect platform and exploring advanced React patterns, microservices architecture, and cloud deployment strategies.</p>
-          </motion.div>
-
-          <motion.div className="grid grid-cols-2 gap-4 mb-6" variants={textVariants}>
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">10+</div>
-              <div className="text-sm text-blue-700">Projects Built</div>
-            </div>
-            <div className="text-center p-3 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">3+</div>
-              <div className="text-sm text-green-700">Years Learning</div>
-            </div>
-          </motion.div>
-
-          <motion.button
-            onClick={() => scrollToSection("projects")}
-            className="px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 ease-in-out transform"
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
-          >
-            View My Work
-          </motion.button>
-        </div>
-
-        {/* Image Content */}
-        <motion.div
-          className="order-1 md:order-2 flex justify-center p-4"
-          variants={imageVariants}
-          whileHover="hover"
-        >
-          <img
-            src={profile}
-            alt="MD. Sohanoor Rahaman Sakin"
-            className="rounded-3xl shadow-2xl object-cover w-full max-w-xs md:max-w-md h-auto border-8 border-indigo-500 transform transition-all duration-300 ease-in-out"
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
+            variants={fadeInUp}
           />
         </motion.div>
-      </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+
+          {/* Content */}
+          <motion.div
+            className="space-y-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            <motion.div variants={fadeInLeft}>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                Building the Future, One Line of Code at a Time
+              </h3>
+
+              <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
+                <p>
+                  I'm a <span className="text-blue-400 font-semibold">Computer Science Engineering student</span> at
+                  Shahjalal University of Science and Technology (SUST) with a passion for creating
+                  scalable web applications and solving complex problems through elegant code.
+                </p>
+
+                <p>
+                  Specializing in <span className="text-purple-400 font-semibold">full-stack development</span> with
+                  the MERN stack, I've built 10+ projects including social platforms, healthcare systems,
+                  and mobile applications that demonstrate my commitment to quality and innovation.
+                </p>
+
+                <p>
+                  My technical expertise spans <span className="text-green-400 font-semibold">React, Node.js, MongoDB,
+                    React Native, and Kotlin</span>. I'm particularly interested in creating user-centered
+                  solutions with clean, maintainable code and modern development practices.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Current Focus */}
+            <motion.div
+              className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-6"
+              variants={fadeInLeft}
+            >
+              <h4 className="text-xl font-semibold text-blue-400 mb-3 flex items-center">
+                <span className="mr-2">🎯</span>
+                Currently Working On
+              </h4>
+              <p className="text-gray-300">
+                Expanding SUST Connect platform and exploring advanced React patterns,
+                microservices architecture, and cloud deployment strategies.
+              </p>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.button
+              onClick={() => scrollToSection("projects")}
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+              variants={fadeInLeft}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Explore My Work
+              <svg
+                className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </motion.button>
+          </motion.div>
+
+          {/* Image & Highlights */}
+          <motion.div
+            className="space-y-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            {/* Profile Image */}
+            <motion.div
+              className="relative mx-auto max-w-md"
+              variants={fadeInRight}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-2xl opacity-20 scale-105" />
+
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 p-1 rounded-2xl">
+                <img
+                  src={profile}
+                  alt="MD. Sohanoor Rahaman Sakin"
+                  className="w-full h-auto rounded-2xl shadow-2xl"
+                  draggable={false}
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent rounded-2xl" />
+              </div>
+            </motion.div>
+
+            {/* Highlights */}
+            <motion.div
+              className="grid gap-4"
+              variants={staggerContainer}
+            >
+              {highlights.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-start space-x-4 p-4 bg-gray-800/30 border border-gray-700/50 rounded-xl backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300"
+                  variants={fadeInRight}
+                  whileHover={{ x: 5, scale: 1.02 }}
+                >
+                  <span className="text-2xl">{item.icon}</span>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">{item.title}</h4>
+                    <p className="text-gray-400 text-sm">{item.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Stats Section */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className="text-center p-6 bg-gray-800/30 border border-gray-700/50 rounded-2xl backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300"
+              variants={fadeInUp}
+              whileHover={{ y: -5, scale: 1.05 }}
+            >
+              <div className={`text-3xl md:text-4xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
+                {stat.number}
+              </div>
+              <div className="text-gray-400 font-medium">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };
